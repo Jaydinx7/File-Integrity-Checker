@@ -4,8 +4,10 @@ target/
 !**/src/test/**/target/
 .kotlin
 .class
+out/
 
 ### IntelliJ IDEA ###
+.idea/
 .idea/misc.xml
 .idea/vcs.xml
 .idea/modules.xml
