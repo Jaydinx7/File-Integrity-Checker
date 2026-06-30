@@ -14,6 +14,12 @@ public class IntegrityChecker {
 
        try{
            System.out.println("File path recieved: " + filePath);
+           MessageDigest digest = MessageDigest.getInstance("SHA-256");
+           String fileHash = generateFileHash(digest, filePath);
+
+           System.out.println("\n[+] SUCCESS!");
+           System.out.println("Algorithm: SHA-256");
+           System.out.println("Hash: " + fileHash);
        } catch (Exception e) {
            System.out.println("ERROR: Something went wrong.");
        }
@@ -21,7 +27,7 @@ public class IntegrityChecker {
        scanner.close();
     }
 
-    private static byte[] generateFileHash(MessageDigest digest, String filePath) throws IOException {
+    private static String generateFileHash(MessageDigest digest, String filePath) throws IOException {
         FileInputStream fis = new FileInputStream(filePath);
 
         byte[] byteArray = new byte[1024];
@@ -32,6 +38,13 @@ public class IntegrityChecker {
         }
         fis.close();
 
-        return digest.digest();
+        // Convert the raw bytes to a readable Hex string
+        byte[] bytes = digest.digest();
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02x", b));
+        }
+
+        return sb.toString();
     }
 }
