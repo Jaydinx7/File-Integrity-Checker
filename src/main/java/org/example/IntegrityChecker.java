@@ -1,5 +1,8 @@
 package org.example;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.MessageDigest;
 import java.util.Scanner;
 
 public class IntegrityChecker {
@@ -16,5 +19,19 @@ public class IntegrityChecker {
        }
 
        scanner.close();
+    }
+
+    private static byte[] generateFileHash(MessageDigest digest, String filePath) throws IOException {
+        FileInputStream fis = new FileInputStream(filePath);
+
+        byte[] byteArray = new byte[1024];
+        int bytesCount = 0;
+
+        while ((bytesCount = fis.read(byteArray)) != -1) {
+            digest.update(byteArray, 0, bytesCount);
+        }
+        fis.close();
+
+        return digest.digest();
     }
 }
