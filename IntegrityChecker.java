@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class IntegrityChecker {
 
-    static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the path to the file you want to check: ");
         String filePath = scanner.nextLine();
